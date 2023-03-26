@@ -1,25 +1,25 @@
 import './App.css';
-import { Formik,  } from 'formik';
+import { useFormik } from 'formik';
 
 function App() {
+
+  const { handleSubmit, handleChange, values } = useFormik({
+    initialValues: {
+      firstName: 'Ezgi',
+      lastName: 'SARI',
+      email: 'oes@gmail.com',
+      gender: 'female',
+      hobies: [],
+      country: "Turkey",
+    },
+    onSubmit: values => {
+      console.log(values);
+    },
+  });
+
   return (
     <div className="App">
       <h1>Sign Up</h1>
-    <Formik
-      initialValues={{
-        firstName: 'Ezgi',
-        lastName: 'SARI',
-        email: 'oes@gmail.com',
-        gender:'female',
-        hobies: [],
-        country: "Turkey",
-      }}
-      onSubmit={(values) => {
-        console.log(values);
-      }}
-    >
-     {
-      ({handleSubmit ,handleChange,values})=>(
         <form onSubmit={handleSubmit}>
         <label htmlFor="firstName">First Name</label>
         <input 
@@ -64,10 +64,7 @@ function App() {
             checked={values.gender === "female"} />
           <br /><br />
 
-          <button type="submit">Submit</button>
-          <br /><br />
-
-          {/* Check Box */}
+{/* Check Box */}
           <div>Software
             <input type="checkbox" name='hobies' value="Software" onChange={handleChange} />
           </div>
@@ -79,7 +76,7 @@ function App() {
           </div>
           <br /><br />
 
-          {/* Dropdown  */}
+{/* Dropdown  */}
           <select
             name='country'
             onChange={handleChange}
@@ -90,14 +87,13 @@ function App() {
           </select>
           <br /><br />
 
+          <button type="submit">Submit</button>
+          <br /><br />
+          
           <code>{JSON.stringify(values)}</code>
 
 
       </form>
-      )
-     }
-    </Formik>
-   
     </div>
   );
 }
